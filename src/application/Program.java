@@ -40,7 +40,7 @@ public class Program {
 				System.out.println("ERROR: THE RESERVATION DATES FOR UPDATE MUST BE FUTURE DATES.");
 			}
 			else if(!checkOut.after(checkIn)) {
-				System.out.println("ERROR CHECK OUT DATE MUST BE AFTER CHECK-IN DATE");
+				System.out.println("ERROR CHECK OUT DATE MUST BE AFTER CHECKIN DATE");
 
 			}
 			else {
