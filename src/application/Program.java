@@ -1,5 +1,6 @@
 package application;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,44 +10,41 @@ import entities.Reservation;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd//MM/yyyy");
 		
-		System.out.println("Room number: ");
-		int number = sc.nextInt();
-		System.out.print("Check-in date(dd/MM/yyyy): ");
-		Date checkIn = sdf.parse(sc.next());
-		System.out.print("Check-out date(dd/MM/yyyy): ");
-		Date checkOut = sdf.parse(sc.next());
-
-		if(!checkOut.after(checkIn)) {
-			System.out.println("ERROR CHECK OUT DATE MUST BE AFTER CHECK IN DATE");
-		}
-		else {
+		try {
+			System.out.println("Room number: ");
+			int number = sc.nextInt();
+			System.out.print("Check-in date(dd/MM/yyyy): ");
+			Date checkIn = sdf.parse(sc.next());
+			System.out.print("Check-out date(dd/MM/yyyy): ");
+			Date checkOut = sdf.parse(sc.next());
+	
 			Reservation reservation  = new Reservation(number,checkIn,checkOut);
 			System.out.println(reservation);
-			
+				
 			System.out.println("Enter data to update the reservation: ");
 			System.out.print("Check-in date(dd/MM/yyyy): ");
 			checkIn = sdf.parse(sc.next());
 			System.out.print("Check-out date(dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-			Date now = new Date();
-			if(checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("ERROR: THE RESERVATION DATES FOR UPDATE MUST BE FUTURE DATES.");
-			}
-			else if(!checkOut.after(checkIn)) {
-				System.out.println("ERROR CHECK OUT DATE MUST BE AFTER CHECKIN DATE");
-
-			}
-			else {
-				reservation.updateDates(checkIn,checkOut);
-				System.out.println(reservation);
-			}
+			sc.close();
+			
+		    reservation.updateDates(checkIn,checkOut);
+			System.out.println("Reservation: " + reservation);
+		} 
+		catch(ParseException e ) {
+			System.out.println("Invalid date format" + e.getMessage());
+		}
+		catch(IllegalArgumentException il) {
+			System.out.println("Reservation" + il.getMessage());
 		}
 	}
 }
+
+
